@@ -13,7 +13,15 @@ pipeline {
             steps {
                 sh '''
                     cd ai_engine
-                    . .venv/bin/activate 2>/dev/null || . venv/bin/activate
+
+                    python3 -m venv venv
+
+                    . venv/bin/activate
+
+                    pip install --upgrade pip
+
+                    pip install -r requirements.txt
+
                     python decision_engine.py
                 '''
             }
