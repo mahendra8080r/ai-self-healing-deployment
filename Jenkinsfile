@@ -16,13 +16,9 @@ pipeline {
 
                     python3 -m venv venv
 
-                    . venv/bin/activate
+                    venv/bin/python -m pip install -r requirements.txt
 
-                    pip install --upgrade pip
-
-                    pip install -r requirements.txt
-
-                    python decision_engine.py
+                    venv/bin/python decision_engine.py
                 '''
             }
         }
