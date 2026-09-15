@@ -25,10 +25,11 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                echo 'Docker build will be integrated here.'
-            }
+                sh '''
+                     docker build -t ai-self-healing-app:1.0 -f docker/Dockerfile .
+                 '''
+             }
         }
-
         stage('Deployment') {
             steps {
                 echo 'Kubernetes deployment will be integrated here.'
