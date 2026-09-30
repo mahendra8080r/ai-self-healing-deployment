@@ -35,15 +35,17 @@ pipeline {
             steps {
                 sh '''
                     docker save -o /tmp/ai-self-healing-app-1.0.tar ai-self-healing-app:1.0
+                    sudo chown jenkins:jenkins /tmp/ai-self-healing-app-1.0.tar
+                    chmod 644 /tmp/ai-self-healing-app-1.0.tar
 
                     scp -i /var/lib/jenkins/.ssh/id_ed25519 \
                         -o IdentitiesOnly=yes \
                         /tmp/ai-self-healing-app-1.0.tar \
-                        megaproject@10.216.251.35:/tmp/
+                        megaproject@10.222.200.35:/tmp/
 
                     ssh -i /var/lib/jenkins/.ssh/id_ed25519 \
                         -o IdentitiesOnly=yes \
-                        megaproject@10.216.251.35 \
+                        megaproject@10.222.200.35 \
                         'sudo -n /usr/bin/ctr -n k8s.io images import /tmp/ai-self-healing-app-1.0.tar && \
                          kubectl apply -f ~/k8s/deployment.yaml && \
                          kubectl apply -f ~/k8s/service.yaml && \
